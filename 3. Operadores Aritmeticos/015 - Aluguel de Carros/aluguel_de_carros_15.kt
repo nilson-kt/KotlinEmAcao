@@ -1,3 +1,7 @@
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
+
 // Programa que lê a quantidade de km percorridos por um carro alugado e a quantidade de dias
 // pelos quais ele foi alugado. O programa calcula o preço do aluguel, considerando que o carro
 // custa R$60 por dia e R$0.15 por km rodado.
@@ -9,7 +13,8 @@ fun main() {
     val diasQuantidade = readln().toInt()
     val precoPorDia = 60 * diasQuantidade
     val precoPorKmRodado = 0.15 * kmQuantidade
-    val valorTotalAluguel = String.format("%.2f", precoPorDia + precoPorKmRodado)
+    val formato = DecimalFormat("0.00", DecimalFormatSymbols(Locale.US))
+    val valorTotalAluguel = formato.format(precoPorDia + precoPorKmRodado)
     print("O valor total do aluguel é: R$valorTotalAluguel")
 
 }
