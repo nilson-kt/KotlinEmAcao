@@ -3,8 +3,6 @@
  * o preço dessa viagem dependendo da distância que será percorrida.
  */
 
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 fun main(){
@@ -22,6 +20,5 @@ fun main(){
     } else {
         0.50 * distancia
     }
-    val formato = DecimalFormat("0.00", DecimalFormatSymbols(Locale.US))
-    print("O valor da viagem fica: R$${formato.format(valorViagem)}")
+    print("O valor da viagem fica: R$${String.format(Locale.US, "%.2f", valorViagem)}")
 }
