@@ -6,8 +6,6 @@
  * No final, o programa exibe uma mensagem de bom dia.
  */
 
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 fun main() {
@@ -18,10 +16,9 @@ fun main() {
     println("=".repeat(45))
     if (velocidadeCarro > 80) {
         val multa = ((velocidadeCarro - 80) * 7).toFloat()
-        val formato = DecimalFormat("0.00", DecimalFormatSymbols(Locale.US))
         println("""
             Você ultrapassou 80km/h e, por isso, foi multado!
-            Sua multa é equivalente ao valor de R$${formato.format(multa)} reais!
+            Sua multa é equivalente ao valor de R$${String.format(Locale.US, "%.2f", multa)} reais!
         """.trimIndent())
     }
     print("Tenha um bom dia, dirija com segurança.")
