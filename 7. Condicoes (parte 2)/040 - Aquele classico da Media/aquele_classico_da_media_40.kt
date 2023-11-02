@@ -3,8 +3,6 @@
  * e exibe se o aluno está aprovado, reprovado ou de recuperação.
  */
 
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 fun main() {
@@ -13,8 +11,7 @@ fun main() {
     print("Segunda nota: ")
     val nota2 = readln().toDouble()
     val media = (nota1 + nota2) / 2
-    val formato = DecimalFormat("0.0", DecimalFormatSymbols(Locale.US))
-    println("Sua média é igual a ${formato.format(media)}")
+    println("Sua média é igual a ${String.format(Locale.US, "%.1f", media)}")
     val situacaoAluno: String = if (media < 5.0) {
         "REPROVADO! Não desista! Tente novamente ano que vem."
     } else if (media in 5.0..6.9) {
