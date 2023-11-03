@@ -20,12 +20,12 @@ fun main() {
         print("Nota 2: "); val nota2 = readln().toFloat()
         val media = (nota1 + nota2) / 2
         ficha.add(mutableListOf(nome, mutableListOf(nota1, nota2), media))
-        var resposta = ""
-        while (resposta !in "SsNn" || resposta == "") {
+        var resposta: String
+        do {
             print("Deseja continuar? [S/N]: ")
-            resposta = readln().trim()
+            resposta = readlnOrNull()?.trim() ?: ""
             if (resposta !in "SsNn" || resposta == "") print("Opção inválida. ")
-        }
+        } while (resposta !in "SsNn" || resposta == "")
         if (resposta in "Nn") break
     }
     println("-=".repeat(30))
