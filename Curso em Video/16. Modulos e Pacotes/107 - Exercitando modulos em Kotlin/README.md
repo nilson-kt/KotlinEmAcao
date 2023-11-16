@@ -5,18 +5,18 @@ Faça também um programa que importe esse módulo e use algumas dessas funçõe
 Exemplo de Output:
 1-
 ~~~
-Digite um preço: R$500
-A metade de R$500.0 é R$250.00
-O dobro de R$500.0 é R$1000.00
-Aumentando 10%, temos R$550.00
-Reduzindo 13%, temos R$435.00
+Digite um preço: R$50
+A metade de R$50.0 é 25.0
+O dobro de R$50.0 é 100.0
+Aumentando 10%, temos 55.0
+Reduzindo 13%, temos 43.5
 ~~~
 
 2-
 ~~~
 Digite um preço: R$250.75
-A metade de R$250.75 é R$125.38
-O dobro de R$250.75 é R$501.50
-Aumentando 10%, temos R$275.83
-Reduzindo 13%, temos R$218.15
+A metade de R$250.75 é 125.375
+O dobro de R$250.75 é 501.5
+Aumentando 10%, temos 275.825
+Reduzindo 13%, temos 218.1525
 ~~~

@@ -1,6 +1,17 @@
+import java.util.Locale
+
 /**
  * Funções matemáticas simples.
  */
+
+fun moeda(numero: Number, moeda: String = "R$"): String {
+    /**
+     * @numero Um número qualquer.
+     * @moeda A abreviatura de alguma moeda. Por padrão é R$.
+     * @return Uma string formatada.
+     */
+    return "$moeda${String.format(Locale.US, "%.2f", numero)}"
+}
 
 fun aumentar(numero: Number, porcentagem: Int): Float {
     /**
