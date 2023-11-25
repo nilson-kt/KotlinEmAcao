@@ -1,5 +1,7 @@
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.BufferedWriter
+import java.io.FileWriter
 import java.io.IOException
 
 fun receberArquivo (): File? {
@@ -17,10 +19,10 @@ fun existeArquivo(caminho: String): Boolean {
         if (arquivo.exists()) {
             true
         } else {
-            throw(FileNotFoundException("Arquivo não encontrado"))
+            throw(FileNotFoundException(cor("Arquivo não encontrado", vermelho = true)))
         }
     } catch (e: FileNotFoundException) {
-        println("Ocorreu um erro: ${e.message}")
+        println(cor("Ocorreu um erro: ${e.message}", vermelho = true))
         false
     }
 
@@ -30,16 +32,19 @@ fun criarArquivo(caminho: String): File? {
     return try {
         val arquivo = File(caminho)
         if (arquivo.createNewFile()) {
-            println("Arquivo ${arquivo.name} criado com sucesso em ${arquivo.path}")
+            println(cor("Arquivo ${arquivo.name} criado com sucesso em ${arquivo.path}", verde = true))
         }
         arquivo
     } catch (e: IOException) {
-        println("Ocorreu um erro ao criar o arquivo: ${e.message}.")
+        println(cor("Ocorreu um erro ao criar o arquivo: ${e.message}.", vermelho = true))
         return null
     }
 
 }
 
 fun escreverArquivo(arquivo: File, frase: String) {
-    arquivo.appendText("$frase\n")
+    BufferedWriter(FileWriter(arquivo, true)).use { writer ->
+        writer.write(frase)
+        writer.newLine()
+    }
 }

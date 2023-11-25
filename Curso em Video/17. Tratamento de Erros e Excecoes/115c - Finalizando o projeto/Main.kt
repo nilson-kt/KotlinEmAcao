@@ -2,10 +2,10 @@ import java.io.File
 
 fun menu(onlyVisual: Boolean = false) {
    fun visual() {
-      cabecalho("MENU PRINCIPAL", 12)
-      println("1 - Ver pessoas cadastradas")
-      println("2 - Cadastrar nova pessoa")
-      println("3 - Sair do Sistema")
+      cabecalho(cor("MENU PRINCIPAL"), 12)
+      println(cor("1 - ", amarelo = true) + cor("Ver pessoas cadastradas", azul = true))
+      println(cor("2 - ", amarelo = true) + cor("Cadastrar nova pessoa", azul = true))
+      println(cor("3 - ", amarelo = true) + cor("Sair do Sistema", azul = true))
       mostrarLinha()
    }
 
@@ -18,7 +18,7 @@ fun menu(onlyVisual: Boolean = false) {
          while (true) {
             visual()
             val opcao = lerOpcao("Sua opção: ")
-            if (opcao == 3) cabecalho("Saindo do sistema... Até logo", 5)
+            if (opcao == 3) cabecalho(cor("Saindo do sistema... Até logo", azul = true), 5)
             when (opcao) {
                1 -> exibirPessoas(arquivo)
                2 -> cadastrar(arquivo)
@@ -27,9 +27,9 @@ fun menu(onlyVisual: Boolean = false) {
          }
       }
    } catch (e: IllegalStateException) {
-      println("Ocorreu um erro: ${e.message}")
+      println(cor("Ocorreu um erro: ${e.message}", vermelho = true))
    } catch (e: Exception) {
-      println("Ocorreu um erro: ${e.message}")
+      println(cor("Ocorreu um erro: ${e.message}", vermelho = true))
    }
 }
 

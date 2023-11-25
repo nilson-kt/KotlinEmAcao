@@ -12,14 +12,14 @@ fun lerOpcao(frase: String): Int {
         try {
             checkNotNull(opcao)
             if (opcao !in (1..3)) {
-                println("Opção inválida. Digite um número de 1 a 3.")
+                println(cor("Opção inválida. Digite um número de 1 a 3.", vermelho = true))
                 ++numeroTentativas
                 continue
             } else {
                 return opcao
             }
         } catch (e: IllegalStateException) {
-            println("Opção inválida. Digite um número inteiro de 1 a 3.")
+            println(cor("Opção inválida. Digite um número inteiro de 1 a 3.", vermelho = true))
             ++numeroTentativas
             continue
         }
@@ -31,9 +31,9 @@ fun lerNome(frase: String): String {
         print(frase)
         val nome = readln().trim()
         if (nome.isEmpty()) {
-            println("Campo vazio. Digite um nome alfabético.")
+            println(cor("Campo vazio. Digite um nome alfabético.", vermelho = true))
         } else if (!nome.all { it.isLetter() || it == ' '}){
-            println("Nome inválido. Digite um nome alfabético.")
+            println(cor("Nome inválido. Digite um nome alfabético.", vermelho = true))
         } else {
             return nome.split(" ")
                 .filter { it.isNotBlank() }.joinToString(" ")
@@ -48,13 +48,13 @@ fun lerIdade(frase: String): Int {
         try {
             checkNotNull(idade)
             if (idade < 0) {
-                println("Idade inválida. Digite um número inteiro não negativo.")
+                println(cor("Idade inválida. Digite um número inteiro não negativo.", vermelho = true))
                 continue
             } else {
                 return idade
             }
         } catch (e: IllegalStateException) {
-            println("Idade inválida. Digite um número inteiro.")
+            println(cor("Idade inválida. Digite um número inteiro.", vermelho = true))
             continue
         }
     }
@@ -66,9 +66,9 @@ fun cadastrar(arquivo: File) {
         val nome = lerNome("Digite seu nome: ")
         val idade = lerIdade("Digite sua idade: ").toString()
         escreverArquivo(arquivo, "$nome;$idade")
-        println("Registro de $nome adicionado.")
+        println(cor("Registro de $nome adicionado.", verde = true))
         Thread.sleep(800)
     } catch (e: Exception) {
-        println("Ocorreu um erro: ${e.message}")
+        println(cor("Ocorreu um erro: ${e.message}", vermelho = true))
     }
 }
