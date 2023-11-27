@@ -68,19 +68,18 @@ fun cadastrar(alunos: MutableList<Aluno>) {
     val linha = Linha()
     linha.caractere = "-"
     val leitor = Leitor()
-    val estudante = Aluno()
 
     linha.repetirLinha(64)
     println("CADASTRO".padStart(34))
     linha.repetirLinha(64)
-
     leitor.mensagem = "Digite o nome de um aluno: "
-    estudante.nome = leitor.lerString()
+    val nome = leitor.lerString()
+    val estudante = Aluno(nome)
+
     for (contador in 1..4) {
         leitor.mensagem = "Digite a ${contador}ª nota: "
         estudante.notas.add(leitor.lerNota())
     }
-    estudante.gerarMatricula()
     alunos.add(estudante)
     println(cor("Aluno ${estudante.nome} cadastrado com sucesso.", verde = true))
     Thread.sleep(1300)

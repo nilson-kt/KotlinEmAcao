@@ -1,11 +1,10 @@
 import kotlin.random.Random
 
-class Aluno {
-    var nome = ""
-    var matricula = 0
+class Aluno(var nome: String = "") {
+    val matricula: Int
     var notas = mutableListOf<Float>()
 
-    fun gerarMatricula() {
+    init {
         val numero = Random.nextInt(1000000, 5000000)
         matricula = numero
     }
