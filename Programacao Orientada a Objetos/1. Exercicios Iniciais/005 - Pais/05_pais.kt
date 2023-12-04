@@ -61,5 +61,6 @@ fun main() {
     brasil.fronteiras = mutableListOf("Bolívia, Peru, Venezuela")
     println(brasil.iso)
     println(brasil.fronteiras)
+    println(brasil.nome)
 
 }
