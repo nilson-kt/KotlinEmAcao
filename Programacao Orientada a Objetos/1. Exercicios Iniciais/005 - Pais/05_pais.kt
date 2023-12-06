@@ -1,5 +1,3 @@
-package poo
-
 class Pais(iso: String, nome: String, dimensao: Double) {
     private var _iso: String
     private var _nome: String
@@ -55,11 +53,11 @@ class Pais(iso: String, nome: String, dimensao: Double) {
         }
 
     fun verificarFronteira(pais: Pais): Boolean {
-        return (pais._nome in _fronteiras)
+        return (pais.nome in fronteiras)
     }
 
     fun verificarFronteirasEmComum(pais: Pais): MutableList<String> {
-        return pais._fronteiras.intersect(_fronteiras.toSet()).toMutableList()
+        return pais.fronteiras.intersect(fronteiras.toSet()).toMutableList()
     }
 
     fun verificarIgualdade(pais: Pais): Boolean {
@@ -108,10 +106,10 @@ fun exibirPaises(listaPaises: MutableList<Pais>, retornoAomenu: Boolean = false)
 
 fun menu(paisSelecionado: Pais?) {
     println("-".repeat(45))
-    println("MENU".padEnd(40))
+    println("MENU".padStart(24))
     println("-".repeat(45))
     paisSelecionado?.let {
-        println("PAÍS SELECIONADO: ${paisSelecionado?.nome}")
+        println("PAÍS SELECIONADO: \u001B[32m${paisSelecionado.nome}\u001B[0m")
         println("1 - Selecionar outro país")
     } ?: run {
         println("1 - Selecionar um país")
@@ -128,11 +126,17 @@ fun main() {
     val brasil = Pais("BRA", "Brasil", 8_510_417.771)
     val venezuela = Pais("VEN", "Venezuela", 912_050.0)
     val chile = Pais("CHL", "Chile", 756_945.0)
+    val colombia = Pais("COL", "Colômbia", 1_142_000.0)
     val equador = Pais("ECU", "Equador", 283_561.0)
     val paraguai = Pais("PRY", "Paraguai", 406_752.0)
-    val listaPaises = mutableListOf(brasil, venezuela, chile, equador, paraguai)
-    brasil.fronteiras = mutableListOf("Venezuela", "Chile")
-    venezuela.fronteiras = mutableListOf("Equador", "Chile")
+    val listaPaises = mutableListOf(brasil, venezuela, chile, equador, paraguai, colombia)
+    brasil.fronteiras = mutableListOf(
+        paraguai.nome, venezuela.nome, colombia.nome)
+    venezuela.fronteiras = mutableListOf(brasil.nome, colombia.nome)
+    chile.fronteiras = mutableListOf(colombia.nome)
+    colombia.fronteiras = mutableListOf(brasil.nome, equador.nome)
+    equador.fronteiras = mutableListOf(equador.nome)
+    paraguai.fronteiras = mutableListOf(brasil.nome)
 
 
     //Menu e Opções
@@ -165,7 +169,8 @@ fun main() {
                     } else {
                         println("Não faz fronteira.")
                     }
-                    Thread.sleep(1400)
+                    print("Pressione Enter para voltar ao Menu ")
+                    readln()
                 } ?: run {
                     println("Selecione um país primeiro.")
                     Thread.sleep(1400)
@@ -182,7 +187,10 @@ fun main() {
                             pais2 = Pais.selecionarPais(listaPaises)
                         }
                     } while (paisSelecionado.verificarIgualdade(pais2))
+                    print("${paisSelecionado.nome} e ${pais2.nome} - Fronteiras em Comum: ")
                     println(paisSelecionado.verificarFronteirasEmComum(pais2))
+                    print("Pressione Enter para voltar ao Menu ")
+                    readln()
                 } ?: run {
                     println("Selecione um país primeiro.")
                     Thread.sleep(1400)
