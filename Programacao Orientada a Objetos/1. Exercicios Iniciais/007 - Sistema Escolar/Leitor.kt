@@ -6,12 +6,11 @@ object Leitor {
             try {
                 print(frase)
                 val opcao = readln().toIntOrNull()
-                checkNotNull(opcao) { "Opção inválida. Digite um número inteiro de 1 a 3." }
-                if (opcao !in 1..3) {
-                    println(Cores.vermelho("Opção inválida. Digite um número inteiro de 1 a 3."))
+                checkNotNull(opcao) { "Opção inválida. Digite um número inteiro de 1 a 5." }
+                if (opcao !in 1..5) {
+                    println(Cores.vermelho("Opção inválida. Digite um número inteiro de 1 a 5."))
                     continue
                 }
-                println("-".repeat(40))
                 return opcao
             } catch (e: IllegalStateException) {
                 println(e.message?.let { Cores.vermelho(it) })
@@ -35,5 +34,10 @@ object Leitor {
                     .filter { it.isNotBlank()}.joinToString(" ")
             }
         }
+    }
+
+    fun mensagemDeRetorno() {
+        print(Cores.cinza("Pressione Enter para retornar ao Menu "))
+        readln()
     }
 }
