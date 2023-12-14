@@ -94,13 +94,18 @@ class Escola {
     }
 
     fun adicionarCursos() {
-        visualizarDepartamentos()
-        print("Selecione um departamento")
-        val selecao = readln().toInt()
-        val depSelecionado = departamentos[selecao-1].values.first()
-        print("Digite o nome do curso: ")
-        val nome = readln()
-        val curso = depSelecionado.Curso(nome)
+        if (departamentos.isEmpty()) {
+            println(Cores.amarelo("Crie um departamento primeiro."))
+            Leitor.mensagemDeRetorno()
+        } else {
+            visualizarDepartamentos()
+            print("Selecione um departamento")
+            val selecao = readln().toInt()
+            val depSelecionado = departamentos[selecao - 1].values.first()
+            print("Digite o nome do curso: ")
+            val nome = readln()
+            val curso = depSelecionado.Curso(nome)
+        }
 
     }
 
