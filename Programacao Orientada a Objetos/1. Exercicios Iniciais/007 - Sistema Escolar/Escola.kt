@@ -39,7 +39,7 @@ class Escola {
 
     }
 
-    fun visualizarDepartamentos() {
+    fun visualizarDepartamentos(mensagemDeRetorno: Boolean = true) {
         println(Interface.exibicaoDepartamento)
         if (departamentos.isEmpty()) {
             println(Cores.amarelo("Nenhum departamento foi criado."))
@@ -57,25 +57,40 @@ class Escola {
                 }
             }
         }
-        Leitor.mensagemDeRetorno()
+        if (mensagemDeRetorno) Leitor.mensagemDeRetorno() else println("-".repeat(40))
     }
 
     fun visualizarCursos() {
-        visualizarDepartamentos()
-        print("Selecione um departamento")
-        val selecao = readln().toInt()
-        val depSelecionado = departamentos[selecao-1].values.first()
-        println(buildString {
-            append("ID".padEnd(5))
-            append("Nome")
-        })
-        depSelecionado.cursos.forEach {
-            it.forEach { (id, curso) ->
-                println(buildString {
-                    append("$id",padEnd(5))
-                    append(curso.nome)
-                })
+        if (departamentos.isEmpty()) {
+            println(Cores.amarelo("Crie um departamento primeiro."))
+            Leitor.mensagemDeRetorno()
+        } else {
+            visualizarDepartamentos(false)
+            val selecao = Leitor.lerInteiro("Selecione um departamento: ")
+            val depBuscado = this.departamentos.filter { it.keys.first() == selecao }
+            println(depBuscado)
+            if (depBuscado.isEmpty()) {
+                println(Cores.amarelo("Não existe nenhum departamento com esse ID."))
+            } else {
+                val depSelecionado = departamentos[selecao - 1].values.first()
+                if (depSelecionado.cursos.isEmpty()) {
+                    println(Cores.amarelo("Não existe nenhum curso atrelado a este departamento."))
+                } else {
+                    println(buildString {
+                        append("ID".padEnd(5))
+                        append("Nome")
+                    })
+                    depSelecionado.cursos.forEach {
+                        it.forEach { (id, curso) ->
+                            println(buildString {
+                                append("$id".padEnd(5))
+                                append(curso.nome)
+                            })
+                        }
+                    }
+                }
             }
+            Leitor.mensagemDeRetorno()
         }
     }
 
@@ -85,12 +100,11 @@ class Escola {
         val departamentoBuscado = departamentos.filter {it.values.first().nome == nome}
         if (departamentoBuscado.isNotEmpty()) {
             println(Cores.amarelo("Já existe um departamento chamado \"$nome\"!"))
-            Leitor.mensagemDeRetorno()
         } else {
             this.Departamento(nome)
             println(Cores.verde("Departamento criado com sucesso."))
-            Leitor.mensagemDeRetorno()
         }
+        Leitor.mensagemDeRetorno()
     }
 
     fun adicionarCursos() {
@@ -98,13 +112,20 @@ class Escola {
             println(Cores.amarelo("Crie um departamento primeiro."))
             Leitor.mensagemDeRetorno()
         } else {
-            visualizarDepartamentos()
-            print("Selecione um departamento")
+            visualizarDepartamentos(false)
+            print("Selecione um departamento: ")
             val selecao = readln().toInt()
             val depSelecionado = departamentos[selecao - 1].values.first()
             print("Digite o nome do curso: ")
             val nome = readln()
-            val curso = depSelecionado.Curso(nome)
+            val cursoBuscado = depSelecionado.cursos.filter {it.values.first().nome == nome}
+            if (cursoBuscado.isNotEmpty()) {
+                println(Cores.amarelo("Já existe um curso chamado \"$nome\"!"))
+            } else {
+                depSelecionado.Curso(nome)
+                println(Cores.verde("Curso criado com sucesso."))
+            }
+            Leitor.mensagemDeRetorno()
         }
 
     }
