@@ -1,12 +1,15 @@
+import Interface.Cores
+import Interface.Painel
+
 fun main() {
     val usp = Escola()
     while (true) {
-        println(Interface.menu)
+        println(Painel.menu)
         val opcao = Leitor.lerOpcao("Sua opção: ", menu = true)
         when (opcao) {
             1 -> {
                 while (true) {
-                    println(Interface.departamentos)
+                    println(Painel.departamentos)
                     val opcaoDep = Leitor.lerOpcao("Sua opção: ", departamentos = true)
                     when (opcaoDep) {
                         1 -> usp.visualizarDepartamentos()
@@ -17,9 +20,8 @@ fun main() {
             }
             2 -> {
                 while (true) {
-                    println(Interface.cursos)
+                    println(Painel.cursos)
                     val opcaoCursos = Leitor.lerOpcao("Sua opção: ", cursos = true)
-
                     when (opcaoCursos) {
                         1 -> usp.visualizarCursos()
                         2 -> usp.adicionarCursos()
@@ -27,7 +29,8 @@ fun main() {
                     }
                 }
             }
-            3 -> {println("-".repeat(40))
+            3 -> {
+                println("-".repeat(40))
                 println(Cores.aplicarNegrito(Cores.azul("Programa encerrado.")))
                 break
             }
