@@ -23,9 +23,7 @@ class Escola {
         }
 
         inner class Curso(var nome: String) {
-            var idCurso = 0
-            val ministrantes = mutableListOf<Professor>()
-            val cargaHoraria = 0
+            private var idCurso = 0
 
             init {
                 idCurso = if (cursos.isEmpty()) {
@@ -66,12 +64,8 @@ class Escola {
             Leitor.mensagemDeRetorno()
         } else {
             visualizarDepartamentos(false)
-            val selecao = Leitor.lerInteiro("Selecione um departamento: ")
-            val depBuscado = this.departamentos.filter { it.keys.first() == selecao }
-            println(depBuscado)
-            if (depBuscado.isEmpty()) {
-                println(Cores.amarelo("Não existe nenhum departamento com esse ID."))
-            } else {
+            val selecao = Leitor.lerIdDepartamento("Selecione um departamento: ", this)
+            if (selecao != null) {
                 val depSelecionado = departamentos[selecao - 1].values.first()
                 if (depSelecionado.cursos.isEmpty()) {
                     println(Cores.amarelo("Não existe nenhum curso atrelado a este departamento."))
@@ -96,7 +90,7 @@ class Escola {
 
     fun adicionarDepartamento() {
         println(Interface.adicaoDepartamento)
-        val nome = Leitor.lerString("Nome do Departamento: ")
+        val nome = Leitor.lerString("Nome do Departamento: ", this, departamentos = true)
         val departamentoBuscado = departamentos.filter {it.values.first().nome == nome}
         if (departamentoBuscado.isNotEmpty()) {
             println(Cores.amarelo("Já existe um departamento chamado \"$nome\"!"))
@@ -113,21 +107,21 @@ class Escola {
             Leitor.mensagemDeRetorno()
         } else {
             visualizarDepartamentos(false)
-            print("Selecione um departamento: ")
-            val selecao = readln().toInt()
-            val depSelecionado = departamentos[selecao - 1].values.first()
-            print("Digite o nome do curso: ")
-            val nome = readln()
-            val cursoBuscado = depSelecionado.cursos.filter {it.values.first().nome == nome}
-            if (cursoBuscado.isNotEmpty()) {
-                println(Cores.amarelo("Já existe um curso chamado \"$nome\"!"))
-            } else {
-                depSelecionado.Curso(nome)
-                println(Cores.verde("Curso criado com sucesso."))
+            val selecao = Leitor.lerIdDepartamento("Selecione um departamento: ", this)
+            if (selecao != null) {
+                println(Interface.adicaoCurso)
+                val depSelecionado = departamentos[selecao - 1].values.first()
+                val nome = Leitor.lerString("Digite o nome do curso: ", this, cursos = true)
+                val cursoBuscado = depSelecionado.cursos.filter { it.values.first().nome == nome }
+                if (cursoBuscado.isNotEmpty()) {
+                    println(Cores.amarelo("Já existe um curso chamado \"$nome\"!"))
+                } else {
+                    depSelecionado.Curso(nome)
+                    println(Cores.verde("Curso criado com sucesso."))
+                }
             }
             Leitor.mensagemDeRetorno()
         }
 
     }
-
 }

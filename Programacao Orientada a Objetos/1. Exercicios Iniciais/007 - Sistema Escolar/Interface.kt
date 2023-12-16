@@ -28,6 +28,8 @@ object Interface {
 
     val adicaoDepartamento = cabecalho(Cores.azul("CADASTRO DE DEPARTAMENTO"), 41)
 
+    val adicaoCurso = cabecalho(Cores.azul("CADASTRO DE CURSO"), 41)
+
     val exibicaoDepartamento = cabecalho(Cores.azul("LISTA DE DEPARTAMENTOS"), 38)
 
 
