@@ -126,6 +126,5 @@ class Escola {
             }
             Leitor.mensagemDeRetorno("Cursos")
         }
-
     }
 }
