@@ -1,5 +1,3 @@
-package poo
-
 class PerfilUsuario {
     lateinit var nome: String
 
