@@ -1,6 +1,6 @@
 fun main() {
     println("DIAS DAS SEMANA")
-    println("-".repeat(30))
+    println("-".repeat(31))
     for (dia in DiaDaSemana.entries) {
         println("${dia.ordinal+1} ${dia.name} ${dia.label}")
     }
