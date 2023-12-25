@@ -1,5 +1,5 @@
 fun main() {
-    val user1 = Pessoa("Thiago", 30)
+    val user1 = Pessoa("Gustavo", 30)
     println("Nome: " + user1.nome)
     println("Idade: " + user1.idade + " anos")
 }
