@@ -1,4 +1,4 @@
-Crie uma classe chamada Imovel, que possua um endereço e um preço. Crie uma classe ImovelNovo, que herda Imovel e possui um adicional no preço. Crie uma classe ImovelVelho, que herda Imovel e possui um desconto no preço. Crie um método de impressão que exiba as informações de um imóvel. No final, crie dois objetos, um representando um imóvel novo e, o outro, um imóvel velho. Exiba suas informações na tela.
+Crie uma classe chamada Imovel, que possua um endereço e um preço. Depois, crie outra classe chamada ImovelNovo, que herda a classe Imovel e que possui um adicional no preço. Crie também uma classe de nome ImovelVelho, que herda a classe Imovel e que possui um desconto no preço. Após isso, construa um método de impressão que exiba as informações de um imóvel. No final, crie dois objetos, um representando um imóvel novo e, o outro, um imóvel velho. Exiba suas informações na tela.
 
 Exemplo de Output:
 ~~~
