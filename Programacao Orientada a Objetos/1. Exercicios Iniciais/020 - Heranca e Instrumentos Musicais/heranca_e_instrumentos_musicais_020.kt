@@ -4,45 +4,53 @@ fun main() {
     val flauta = Flauta("Flauta")
     val trombone = Trombone("Trombone")
 
-    violino.afinar()
-    violino.tocar()
-    println("-".repeat(40))
+    val michael = Musico("Michael")
+    val maria = Musico("Maria")
+    val joao = Musico("João")
+    val rafaela = Musico("Rafaela")
 
-    violao.afinar()
-    violao.tocar()
-    println("-".repeat(40))
-
-    flauta.afinar()
-    flauta.tocar()
-    println("-".repeat(40))
-
-    trombone.afinar()
-    trombone.tocar()
+    tocar(violino, michael)
+    tocar(violao, maria)
+    tocar(flauta, joao)
+    tocar(trombone, rafaela)
 }
 
-abstract class Instrumento(var nome: String) {
+fun tocar (instrumento: Instrumento, musico: Musico) {
+    instrumento.tocar(musico)
+}
 
-    abstract fun afinar()
+abstract class Instrumento(private var nome: String) {
 
-    fun tocar() {
-        val artigo = if (nome.endsWith("a")) "a" else "o"
-        println("(Tocando $artigo $nome)...")
+    abstract fun afinar(): Boolean
+
+    fun tocar(musico: Musico) {
+        if (afinar()) {
+            val artigo = if (nome.endsWith("a")) "a" else "o"
+            println("(${musico.nome} toca $artigo $nome)")
+        } else {
+            println("${musico.nome}, por favor, afine seu instrumento: $nome")
+        }
+        println("-".repeat(60))
+
     }
 }
+
+class Musico(var nome: String)
 
 abstract class InstrumentoDeCorda(nome: String) : Instrumento(nome)
 
 class Violao(nome: String) : InstrumentoDeCorda(nome) {
 
-    override fun afinar() {
-        println("Afinar as cordas respectivamente MI LÁ RÉ SOL SI MI.")
+    override fun afinar(): Boolean {
+        println("Afinando as cordas respectivamente MI LÁ RÉ SOL SI MI...")
+        return true
     }
 }
 
 class Violino(nome: String) : InstrumentoDeCorda(nome) {
 
-    override fun afinar() {
-        println("Afinar as cordas respectivamente SOL RÉ LÁ MI.")
+    override fun afinar(): Boolean {
+        return false
     }
 
 }
@@ -51,16 +59,17 @@ abstract class InstrumentoDeSopro(nome: String) : Instrumento(nome)
 
 class Flauta(nome: String) : InstrumentoDeSopro(nome) {
 
-    override fun afinar() {
-        println("Afinar ajustando as chaves e a embocadura.")
+    override fun afinar(): Boolean {
+        println("Afinando por meio do ajuste das chaves e da embocadura...")
+        return true
     }
 
 }
 
 class Trombone(nome: String) : InstrumentoDeSopro(nome) {
 
-    override fun afinar() {
-        println("Afinar ajustando a posição da vara.")
+    override fun afinar(): Boolean {
+        println("Afinando por meio do ajuste da posição da vara...")
+        return true
     }
-
 }
