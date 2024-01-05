@@ -11,7 +11,7 @@ abstract class Component {
     }
 }
 
-abstract class Text(val text: String) : Component() {
+abstract class Text(private val text: String) : Component() {
     override fun render() {
         super.render()
         println("Texto: $text")
