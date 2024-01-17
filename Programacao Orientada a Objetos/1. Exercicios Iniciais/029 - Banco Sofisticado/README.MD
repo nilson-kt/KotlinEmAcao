@@ -1,4 +1,4 @@
-Esse exercicio leva um pouco de tempo. Tutorial de como deve ser feito o exercicio: <a href="https://www.youtube.com/watch?v=hOC461osYgk&amp;list=PLHz_AreHm4dkqe2aR0tQK74m8SFe-aGsY&amp;index=11" target="_blank">Curso em Video - Exercicio de POO</a>
+Tutorial de como deve ser feito o exercicio: <a href="https://www.youtube.com/watch?v=hOC461osYgk&amp;list=PLHz_AreHm4dkqe2aR0tQK74m8SFe-aGsY&amp;index=11" target="_blank">Curso em Video - Exercicio de POO</a>
 
 Exemplo de Output:
 ~~~

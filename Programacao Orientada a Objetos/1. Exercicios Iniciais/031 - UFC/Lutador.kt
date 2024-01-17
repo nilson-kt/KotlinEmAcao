@@ -7,7 +7,11 @@ class Lutador(
     private var _vitorias: Int,
     private var _derrotas: Int,
     private var _empates: Int
+
 ) {
+    init {
+        atualizarCategoria(_peso)
+    }
 
     var nome: String
         get() = _nome
@@ -29,17 +33,17 @@ class Lutador(
         get() = _peso
         set(valor) {
             _peso = valor
-            atualizarCategoria()
+            atualizarCategoria(valor)
         }
 
-    private var _categoria = ""
+    private lateinit var _categoria: String
     var categoria: String
         get() = _categoria
         private set(valor) {
             _categoria = valor
         }
 
-    private fun atualizarCategoria() {
+    private fun atualizarCategoria(peso: Float) {
         categoria = if (peso < 52.2f) {
             "Inválido"
         } else if (peso <= 70.3f) {
@@ -67,19 +71,19 @@ class Lutador(
 
     fun apresentar() {
         println("""
-            Lutador: $nome
-            Origem: $nacionalidade
-            Idade: $idade anos
-            Altura: ${altura}m
-            Peso: ${peso}kg
-            Ganhou: $vitorias
-            Perdeu: $derrotas
-            Empatou: $empates
+            Apresentando o lutador $nome
+            diretamente de $nacionalidade
+            com $idade anos de idade e ${altura}m de altura
+            pesando ${peso}kg
+            $vitorias vitórias
+            $derrotas derrotas e
+            $empates empates!!
         """.trimIndent())
     }
 
     fun status() {
         println("""
+            ${"-".repeat(45)}
             $nome
             é um peso $categoria
             $vitorias vitórias
@@ -93,7 +97,7 @@ class Lutador(
     }
 
     fun perderLuta() {
-        derrotas--
+        derrotas++
     }
 
     fun empatarLuta() {

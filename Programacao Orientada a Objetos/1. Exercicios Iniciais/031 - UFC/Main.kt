@@ -19,7 +19,10 @@ fun main() {
 
     val lutadores = mutableListOf(prettyBoy, putscript, snapshadow, deadCode, ufocobol, nerdaard)
 
-    lutadores[0].apresentar()
-    lutadores[0].categoria
+    val streetFight = Luta()
+    streetFight.marcarLuta(lutadores[0], lutadores[1])
+    streetFight.lutar()
 
+    lutadores[0].status()
+    lutadores[1].status()
 }
