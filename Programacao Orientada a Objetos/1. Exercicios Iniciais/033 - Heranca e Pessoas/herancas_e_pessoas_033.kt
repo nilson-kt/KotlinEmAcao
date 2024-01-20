@@ -4,6 +4,20 @@ fun main() {
     v1.idade = 22
     v1.sexo = "M"
     println(v1.toString())
+
+    val a1 = Aluno()
+    a1.nome = "Cláudio"
+    a1.matricula = 1111
+    a1.curso = "Informática"
+    a1.sexo = "M"
+    a1.pagarMensalidade()
+
+    val b1 = Bolsista()
+    b1.matricula = 1112
+    b1.nome = "Jubileu"
+    b1.bolsa = 12.5f
+    b1.sexo = "M"
+    b1.pagarMensalidade()
 }
 
 abstract class Pessoa() {
@@ -25,23 +39,23 @@ abstract class Pessoa() {
 class Visitante: Pessoa()
 
 open class Aluno: Pessoa() {
-    private val matricula = 0
-    private val curso = ""
+    var matricula = 0
+    var curso = ""
 
     open fun pagarMensalidade() {
-
+        println("Pagando mensalidade de aluno $nome")
     }
 }
 
 class Bolsista: Aluno() {
-    private val bolsa = 0
+    var bolsa = 0f
 
     fun renovarBolsa() {
-
+        println("Renovando bolsa de $nome")
     }
 
     override fun pagarMensalidade() {
-
+        println("$nome é bolsista! Pagamento facilitado!")
     }
 
 }
