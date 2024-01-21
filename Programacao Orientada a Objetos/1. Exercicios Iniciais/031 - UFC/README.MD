@@ -1,4 +1,4 @@
-Tutorial de como deve ser feito o exercicio: <a href="https://www.youtube.com/watch?v=GLHbxDU9iBA&list=PLHz_AreHm4dkqe2aR0tQK74m8SFe-aGsY&index=14" target="_blank">Curso em Video - Exercicio de POO</a>
+Tutorial de como deve ser feito o exercício: <a href="https://www.youtube.com/watch?v=GLHbxDU9iBA&list=PLHz_AreHm4dkqe2aR0tQK74m8SFe-aGsY&index=14" target="_blank">Curso em Video - Exercicio de POO</a>
 
 Exemplo de Output:
 ~~~
