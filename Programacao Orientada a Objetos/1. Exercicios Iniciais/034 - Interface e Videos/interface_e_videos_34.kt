@@ -1,20 +1,31 @@
 fun main() {
 
-    val v = arrayOfNulls<Video>(5)
+    val v = mutableListOf<Video>()
+    v.add(Video("Aula 1 de POO"))
+    v.add(Video("Aula 12 de PHP"))
+    v.add(Video("Aula 10 DE HTML5"))
 
-    v[0] = Video("Aula 1 de POO")
-    v[1] = Video("Aula 12 de PHP")
-    v[2] = Video("Aula 10 DE HTML5")
+    val g = mutableListOf<Gafanhoto>()
+    g.add(Gafanhoto("Jubileu", 22, "M", "juba"))
+    g.add(Gafanhoto("Creuza", 1, "M", "creuzita"))
 
-    val g = arrayOfNulls<Gafanhoto>(2)
+    println("VÍDEOS")
+    println("-".repeat(30))
+    println(v[0].toString())
+    println(v[1].toString())
+    println(v[2].toString())
 
-
-    g[0] = Gafanhoto("Jubileu", 22, "M", "juba")
-    g[1] = Gafanhoto("Creuza", 1, "M", "creuzita")
-
-    g[0]
-
+    println("\nGAFANHOTOS")
+    println("-".repeat(30))
     println(g[0].toString())
+    println(g[1].toString())
+
+    println("\nVISUALIZAÇõES")
+    val vis = mutableListOf<Visualizacao>()
+    vis.add(Visualizacao(g[0], v[2]))
+    println(vis[0].toString())
+    vis.add(Visualizacao(g[0], v[1]))
+    println(vis[1].toString())
 
 }
 
@@ -71,7 +82,7 @@ abstract class Pessoa(protected var nome: String, protected var idade: Int, prot
 class Gafanhoto(nome: String, idade: Int, sexo: String, private val login: String)
     : Pessoa(nome, idade, sexo) {
 
-    private val totAssistido = 0
+    var totAssistido = 0
 
     fun viuMaisUm() {
 
@@ -79,6 +90,32 @@ class Gafanhoto(nome: String, idade: Int, sexo: String, private val login: Strin
 
     override fun toString(): String {
         return "Gafanhoto(${super.toString()}, login='$login',  totAssistido=$totAssistido)"
+    }
+
+
+}
+
+class Visualizacao(private var espectador: Gafanhoto, private var filme: Video) {
+
+    init {
+        espectador.totAssistido++
+        filme.views++
+    }
+
+    fun avaliar() {
+
+    }
+
+    fun avaliar(nota: Int) {
+
+    }
+
+    fun avaliar(porc: Float) {
+
+    }
+
+    override fun toString(): String {
+        return "Visualizacao(espectador=$espectador, filme=$filme)"
     }
 
 
