@@ -21,10 +21,14 @@ fun main() {
     println(g[1].toString())
 
     println("\nVISUALIZAÇõES")
+    println("-".repeat(30))
     val vis = mutableListOf<Visualizacao>()
-    vis.add(Visualizacao(g[0], v[2]))
+    vis.add(Visualizacao(g[0], v[2])) // Jubileu assiste HTML5
+    vis[0].avaliar()
     println(vis[0].toString())
-    vis.add(Visualizacao(g[0], v[1]))
+
+    vis.add(Visualizacao(g[0], v[1])) // Jubileu assiste PHP
+    vis[1].avaliar(7)
     println(vis[1].toString())
 
 }
@@ -39,7 +43,11 @@ interface AcoesVideo {
 
 
 class Video(var titulo: String): AcoesVideo {
-    val avaliacao = 1
+    var avaliacao = 1
+        set(valor) {
+            field = (avaliacao + valor) / views
+        }
+
     var views = 0
     var curtidas = 0
     var reproduzindo = false
@@ -103,15 +111,24 @@ class Visualizacao(private var espectador: Gafanhoto, private var filme: Video) 
     }
 
     fun avaliar() {
-
+        filme.avaliacao = 5
     }
 
     fun avaliar(nota: Int) {
-
+        filme.avaliacao = nota
     }
 
     fun avaliar(porc: Float) {
-
+        val total = if (porc <= 20) {
+            3
+        } else if (porc <= 50) {
+            5
+        } else if (porc <= 90) {
+            8
+        } else {
+            10
+        }
+        filme.avaliacao = total
     }
 
     override fun toString(): String {
