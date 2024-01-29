@@ -1,52 +1,7 @@
-fun main() {
-    val controle = ControleRemoto()
-
-    controle.ligar()
-    controle.abrirMenu()
-    controle.fecharMenu()
-
-}
-
-interface Controlador {
-    fun ligar()
-    fun desligar()
-    fun abrirMenu()
-    fun fecharMenu()
-    fun maisVolume()
-    fun menosvolume()
-    fun ligarMudo()
-    fun desligarMudo()
-    fun play()
-    fun pause()
-}
-
 class ControleRemoto : Controlador {
-    private var _volume = 50
-    private var volume: Int
-        get() {
-            return _volume
-        }
-        set(valor) {
-            _volume = valor
-        }
-
-    private var _ligado = true
-    private var ligado: Boolean
-        get() {
-            return _ligado
-        }
-        set(valor) {
-            _ligado = valor
-        }
-
-    private var _tocando = false
-    private var tocando: Boolean
-        get() {
-            return _tocando
-        }
-        set(valor) {
-            _tocando = valor
-        }
+    private var volume = 50
+    private var ligado = true
+    private var tocando = false
 
     override fun ligar() {
         ligado = true
