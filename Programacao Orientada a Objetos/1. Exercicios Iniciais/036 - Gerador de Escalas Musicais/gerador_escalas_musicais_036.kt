@@ -1,12 +1,12 @@
 fun main() {
-    GeradorEscala.gerarEscalas()
+    val escalas = GeradorDeEscalas.gerarEscalas()
+    GeradorDeEscalas.exibirEscalas(escalas, "Escalas Maiores")
 }
 
 
-
-object GeradorEscala {
+object GeradorDeEscalas {
     private val notasNaturais = listOf("dó", "ré", "mi", "fá", "sol", "lá", "si")
-    private var padraoDeIntervalo = mutableListOf("T", "T", "ST", "T", "T", "T", "ST")
+    private var padraoDeIntervalo = listOf("T", "T", "ST", "T", "T", "T", "ST")
 
     private fun gerarEscalasSemAcidentes(): List<List<String>> {
         val escalasSemAcidentes = mutableListOf<List<String>>()
@@ -54,11 +54,21 @@ object GeradorEscala {
         return escalasModificadas.chunked(7)
     }
 
-    fun gerarEscalas() {
+    fun gerarEscalas(escalaMenor: Boolean = false): List<List<String>> {
+        var mensagem = "Escalas maiores geradas com sucesso!"
         val escalasSemAcidentes = gerarEscalasSemAcidentes()
-        val escalasModificadas =  aplicarAcidentes(escalasSemAcidentes)
-        for (escala in escalasModificadas) {
-            println(escala)
+
+        if (escalaMenor)  {
+            padraoDeIntervalo = listOf("T", "ST", "T", "T", "ST", "T", "T")
+            mensagem = "Escalas menores geradas com sucesso!"
         }
+        println(mensagem)
+        println("-".repeat(40))
+        return aplicarAcidentes(escalasSemAcidentes)
+    }
+
+    fun exibirEscalas(escalas: List<List<String>>, mensagem: String = "") {
+        if (mensagem.isNotEmpty()) println(mensagem)
+        escalas.forEach { println(it) }
     }
 }
