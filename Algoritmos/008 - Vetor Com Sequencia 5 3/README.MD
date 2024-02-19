@@ -1,0 +1,1 @@
+Com uma única linha de código, crie um programa que preencha automaticamente (usando lógica, não apenas atribuindo diretamente) um vetor numérico com 10 posições, conforme a seguir: 5 3 5 3 5 3 5 3 5 3
