@@ -1,23 +1,39 @@
 import kotlin.system.exitProcess
 
 fun main() {
-    val idades = mutableListOf<Pair<String, Int>>()
-    (1..8).forEach { contador ->
-        print("Digite o nome da ${contador}ª pessoa: ")
-        val nome = Leitor.lerNome()
-        print("Digite a idade de $nome: ")
-        val idade = readln().toInt()
 
-    }
+
 }
 
 object AnalisadorDeIdades {
 
-    fun entrarDados() {
-
+    fun entrarDados(): MutableList<Pessoa> {
+        val candidatos = mutableListOf<Pessoa>()
+        for (contador in 1..8) {
+            print("Digite o nome da ${contador}ª pessoa: ")
+            val nome = Leitor.lerNome()
+            print("Digite a idade de $nome: ")
+            val idade = Leitor.lerIdade()
+            candidatos.add(Pessoa(nome, idade))
+        }
+        return candidatos
     }
 
+    fun analisarDados(candidatos: MutableList<Pessoa>): List<Any> {
+        return listOf<Any>(
+            candidatos.run {
+                val mediaIdade = this.sumOf { it.idade } / candidatos.size
+                val posicoesComMaisDe20 = this.filter { it.idade > 25 }.map { indexOf(it) }
+                val maiorIdadeDigitada = this.maxOf { it.idade }
+                val posicoesMaiorIdade = this.filter { it.idade == maiorIdadeDigitada }.map { indexOf(it) }
+            }
+        )
+    }
+
+
 }
+
+data class Pessoa(val nome: String, val idade: Int)
 
 object Leitor {
     fun lerEntrada(mensagem: String, validacao: (String) -> Boolean): String {
@@ -40,6 +56,14 @@ object Leitor {
         val nome = lerEntrada("Erro. Digite apenas letras e espaços: ") { string ->
             string.all { it.isLetter() || it.isWhitespace() } && string.isNotEmpty()
         }
+        return nome.split(" ").filter { it.isNotBlank() }.joinToString(" ")
+    }
+
+    fun lerIdade(): Int {
+        return lerEntrada("Erro. Digite apenas números inteiros acima de 0: ") {
+            val possivelNumero = it.toIntOrNull()
+            possivelNumero != null && possivelNumero > 0
+        }.toInt()
     }
 
 }
