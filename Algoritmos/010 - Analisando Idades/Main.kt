@@ -1,33 +1,49 @@
 import kotlin.system.exitProcess
 
 fun main() {
-
+    AnalisadorDeIdades.rodarPrograma()
 
 }
 
 object AnalisadorDeIdades {
 
-    fun entrarDados(): MutableList<Pessoa> {
+    private fun entrarDados(): MutableList<Pessoa> {
         val candidatos = mutableListOf<Pessoa>()
-        for (contador in 1..8) {
-            print("Digite o nome da ${contador}ª pessoa: ")
+        for (contador in 1..3) {
+            print("Nome da ${contador}ª pessoa: ")
             val nome = Leitor.lerNome()
-            print("Digite a idade de $nome: ")
+            print("Idade de $nome: ")
             val idade = Leitor.lerIdade()
             candidatos.add(Pessoa(nome, idade))
         }
         return candidatos
     }
 
-    fun analisarDados(candidatos: MutableList<Pessoa>): List<Any> {
-        return listOf<Any>(
-            candidatos.run {
-                val mediaIdade = this.sumOf { it.idade } / candidatos.size
-                val posicoesComMaisDe20 = this.filter { it.idade > 25 }.map { indexOf(it) }
-                val maiorIdadeDigitada = this.maxOf { it.idade }
-                val posicoesMaiorIdade = this.filter { it.idade == maiorIdadeDigitada }.map { indexOf(it) }
-            }
-        )
+    private fun analisarDados(candidatos: MutableList<Pessoa>): List<Any> {
+        val mediaIdade = candidatos.sumOf { it.idade } / candidatos.size
+        val posicoesComMaisDe25 = candidatos.mapIndexedNotNull { index, pessoa ->
+            if (pessoa.idade > 25) index else null}
+        val maiorIdadeDigitada = candidatos.maxOf { it.idade }
+        val posicoesMaiorIdade = candidatos.mapIndexedNotNull { index, pessoa ->
+            if (pessoa.idade == maiorIdadeDigitada) index else null }
+        return listOf(mediaIdade, posicoesComMaisDe25, maiorIdadeDigitada, posicoesMaiorIdade)
+    }
+
+    private fun exibirInformacoes(analise: List<Any>) {
+        val (mediaIdade, posicoesComMaisDe25, maiorIdadeDigitada, posicoesMaiorIdade) = analise
+        println("-".repeat(40))
+        println("RESULTADO DA ANÁLISE DOS DADOS")
+        println("-".repeat(40))
+        println("""
+            Média das Idades: $mediaIdade
+            Posições com Pessoas com Mais de 25 anos: $posicoesComMaisDe25
+            Maior Idade Digitada: $maiorIdadeDigitada
+            Posições com Pessoas Com a Maior Idade: $posicoesMaiorIdade
+        """.trimIndent())
+    }
+
+    fun rodarPrograma() {
+        exibirInformacoes(analisarDados(entrarDados()))
     }
 
 
