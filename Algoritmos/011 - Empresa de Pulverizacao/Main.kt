@@ -1,10 +1,21 @@
 import java.util.Locale
 
 fun main() {
-    Pulverizadora.rodarSistema()
+    try {
+        Pulverizadora.rodarSistema()
+    } catch (e: TentativaMaximaAtingidaExcecao) {
+        println(e.message)
+    }
 }
 
 object Pulverizadora {
+    private const val NUMERO_LINHAS = 45
+
+    private fun mostrarLinha(quantidadeLinhas: Int) {
+        println("-".repeat(quantidadeLinhas))
+    }
+
+
     private fun entrarDados(): Pair<Int, Int> {
         println("""
             Tipo 1 – ervas daninhas  R$50.00 por acre
@@ -12,10 +23,10 @@ object Pulverizadora {
             Tipo 3 – broca           R$150.00 por acre
             Tipo 4 – todos acima     R$250.00 por acre
         """.trimIndent())
-        println("-".repeat(45))
+        mostrarLinha(NUMERO_LINHAS)
         print("Digite o tipo de pulverização: ")
         val tipoPulverizacao = Leitor.lerTipoPulverizacao()
-        println("-".repeat(45))
+        mostrarLinha(NUMERO_LINHAS)
         print("Digite a área a ser pulverizada (em acres): ")
         val area = Leitor.lerArea()
         return Pair(tipoPulverizacao, area)
@@ -28,19 +39,22 @@ object Pulverizadora {
             3 -> 150
             else -> 250
         }
-        return calcularDesconto((valorPorAcre * acres).toFloat(), acres)
+        val preco = (valorPorAcre * acres).toFloat()
+        return calcularDesconto(preco, acres) ?: preco
+
     }
 
-    private fun calcularDesconto(preco: Float, acres: Int): Float {
-        return when {
+    private fun calcularDesconto(preco: Float, acres: Int): Float? {
+        val porcentagem = when {
             acres > 1000 && preco > 750 -> 0.15f
-            acres > 1000 -> 0.05f
-            else -> 0.10f
+            preco > 750 -> 0.10f
+            else -> null
         }
+        return if (porcentagem == null) null else preco - (preco * porcentagem)
     }
 
     private fun exibirInformacoes(preco: Float, tipoPulverizacao: Int, acres: Int) {
-        println("-".repeat(45))
+        mostrarLinha(NUMERO_LINHAS)
         println("""
             Quantidade de Acres: $acres
             Tipo de Pulverização: $tipoPulverizacao
@@ -56,10 +70,12 @@ object Pulverizadora {
 }
 
 object Leitor {
-    const val MAX_TENTATIVA = 5
+    private const val MAX_TENTATIVA = 5
 
     object Mensagens {
         const val TENTATIVA_MAXIMA_ATINGIDA = "Você excedeu o número máximo de tentativas. Programa encerrado."
+        const val TIPO_PULVERIZACAO_INVALIDO = "Opção inválida. Digite um número inteiro de 1 a 4: "
+        const val AREA_INVALIDA = "Área inválida. Digite um número inteiro acima de 0: "
     }
 
     private fun lerEntrada(mensagem: String, validacao: (String) -> Boolean): String {
@@ -69,18 +85,19 @@ object Leitor {
             if (validacao(entrada)) return entrada else print(mensagem)
             tentativa++
         }
+        println()
         throw TentativaMaximaAtingidaExcecao(Mensagens.TENTATIVA_MAXIMA_ATINGIDA)
     }
 
     fun lerTipoPulverizacao(): Int {
-        return lerEntrada("Opção inválida. Digite um número inteiro de 1 a 4: ") {
+        return lerEntrada(Mensagens.TIPO_PULVERIZACAO_INVALIDO) {
             val possivelNumero = it.toIntOrNull()
             possivelNumero != null && possivelNumero in 1..4
         }.toInt()
     }
 
     fun lerArea(): Int {
-        return lerEntrada("Área inválida. Digite um número inteiro acima de 0: ") {
+        return lerEntrada(Mensagens.AREA_INVALIDA) {
             val possivelNumero = it.toIntOrNull()
             possivelNumero != null && possivelNumero > 0
         }.toInt()
