@@ -1,28 +1,30 @@
 fun main() {
-
-    val paisA = Pais(5_000_000, 0.03f)
-    val paisB = Pais(7_000_000, 0.02f)
+    val paisA = Pais("Brasil", 5_000_000, 0.03f)
+    val paisB = Pais("China", 7_000_000, 0.02f)
+    paisA.calcularUltrapassagem(paisB)
 
 }
 
-class Pais(val populacao: Int, val taxaNatalidade: Float) {
-    val pessoasPorAno = (populacao * taxaNatalidade).toInt()
+class Pais(private val nome: String, private val populacao: Int, taxaNatalidade: Float) {
+
+    private val pessoasPorAno = (populacao * taxaNatalidade).toInt()
 
     fun calcularUltrapassagem(paisB: Pais) {
         var populacaoPaisA = this.populacao
         var contador = 0
-        if (paisB.populacao < this.populacao) {
-            println("O país B já tem uma população menor")
+        if (this.populacao > paisB.populacao) {
+            println("$nome possui uma população maior do que ${paisB.nome}")
+        } else if (this.populacao == paisB.populacao) {
+            println("$nome possui uma população igual a ${paisB.nome}")
         } else {
-            println(this.populacao)
+            println("0 $populacao")
             while (populacaoPaisA < paisB.populacao) {
-                populacaoPaisA += this.pessoasPorAno
+                populacaoPaisA += pessoasPorAno
                 contador++
                 println("$contador $populacaoPaisA")
             }
+            println("-".repeat(40))
+            println("Para $nome ultrapassar ${paisB.nome} em população, é necessário $contador anos. ")
         }
     }
-
-
-
 }
