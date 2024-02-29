@@ -9,22 +9,28 @@ class Pais(private val nome: String, private val populacao: Int, taxaNatalidade:
 
     private val pessoasPorAno = (populacao * taxaNatalidade).toInt()
 
-    fun calcularUltrapassagem(paisB: Pais) {
-        var populacaoPaisA = this.populacao
-        var contador = 0
-        if (this.populacao > paisB.populacao) {
-            println("$nome possui uma população maior do que ${paisB.nome}")
-        } else if (this.populacao == paisB.populacao) {
-            println("$nome possui uma população igual a ${paisB.nome}")
-        } else {
-            println("0 $populacao")
-            while (populacaoPaisA < paisB.populacao) {
-                populacaoPaisA += pessoasPorAno
-                contador++
-                println("$contador $populacaoPaisA")
-            }
-            println("-".repeat(40))
-            println("Para $nome ultrapassar ${paisB.nome} em população, é necessário $contador anos. ")
+    private fun compararPopulacao(paisA: Pais, paisB: Pais): String {
+        val popA = paisA.populacao
+        val popB = paisB.populacao
+        return when {
+            popA > popB -> "maior"
+            popA < popB -> "menor"
+            else -> "igual"
         }
     }
-}
+
+    fun calcularUltrapassagem(paisB: Pais) {
+        var populacaoPaisA = this.populacao
+        val comparacao = compararPopulacao(this, paisB)
+        println("$nome possui uma população $comparacao do que ${paisB.nome}.")
+        var anosParaUltrapassagem = 0
+        do  {
+            if (anosParaUltrapassagem == 0) println("0 $populacaoPaisA")
+            populacaoPaisA += pessoasPorAno
+            anosParaUltrapassagem++
+            println("$anosParaUltrapassagem $populacaoPaisA")
+        } while (populacaoPaisA < paisB.populacao )
+        println("-".repeat(40))
+        println("Para $nome ultrapassar ${paisB.nome} em população, são necessários $anosParaUltrapassagem anos.")
+        }
+    }
