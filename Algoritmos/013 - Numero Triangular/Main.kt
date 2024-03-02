@@ -1,13 +1,16 @@
 fun main() {
-    val numero = readln().toInt()
-    val ax = (1..numero).filter { numero % it == 0 }
-    val lista = (1..numero).filter { numero % it == 0 }.chunked(2) { (a, b) -> if (b > a+1) null else Pair(a, b)}
-    val teste = lista.filterNotNull().map {it.toList()}.flatten()
-    println(ax)
-    println(teste.windowed(3))
-    teste.windowed(3).forEach {
-        print("$it == ")
-        println(it.reduce{acc, a -> acc * a} )
+    val number = readln().toInt()
+    println(isTriangular(number))
+
+}
+
+fun isTriangular(numero: Int): Boolean {
+    var combination = 0
+    for (counter in 1..numero) {
+        combination = counter * (counter + 1) * (counter + 2)
+        println("$counter * ${counter + 1} * ${counter + 2} = $combination")
+        if (combination >= numero) break
     }
+    return combination == numero
 
 }
