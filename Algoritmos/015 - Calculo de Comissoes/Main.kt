@@ -7,6 +7,7 @@ fun main() {
 object Colaborador {
     fun lerEntrada() {
         Leitor.lerVenda()
+
     }
 }
 
@@ -15,22 +16,30 @@ object Leitor {
     private var tentativa = 0
 
     object Mensagens {
-        const val VENDA_BRUTA_INVALDIA = "Erro. Digite apenas números."
+        const val VENDA_BRUTA_INVALIDA = "Erro. Digite apenas números: R$"
         const val LIMITE_TENTATIVAS_ATINGIDO = "Você excedeu o número máximo de tentativas. Programa encerrado."
     }
 
-    private fun lerEntrada(mensagem: String, validacao: (String) -> Boolean): String {
-        while (tentativa != MAX_TENTATIVA) {
-            print(mensagem)
-            val entrada = readln()
-            if (validacao(entrada)) return entrada else print(Mensagens.VENDA_BRUTA_INVALDIA)
-            tentativa++
-        }
-        throw MaximaTentativaAlcancadaException()
+    private fun lerEntrada(validacao: (String) -> Boolean): Map<String, Float> {
+        val mapa = mutableMapOf<String, Float>()
+        for (contador in 1..5) {
+            print("Digite a venda bruta do ${contador}º vendedor: R$")
+            var entrada = readln()
+            while (!validacao(entrada)) {
+                print(Mensagens.VENDA_BRUTA_INVALIDA)
+                entrada = readln()
+                tentativa++
+                if (tentativa == 5)  throw MaximaTentativaAlcancadaException()
+            }
+            mapa += "Vendedor $contador" to entrada.toFloat()
+            }
+        return mapa
         }
 
+    }
+
     fun lerVenda(): Float {
-        return lerEntrada("Digite as vendas brutas: R$") {
+        return lerEntrada {
             val possivelNumero = it.toFloatOrNull()
             possivelNumero != null
         }.toFloat()
