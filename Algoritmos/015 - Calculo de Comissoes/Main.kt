@@ -6,8 +6,13 @@ fun main() {
 
 object Colaborador {
     fun lerEntrada() {
-        Leitor.lerVenda()
+        calcularComissao(Leitor.lerVenda())
 
+
+    }
+
+    fun calcularComissao(mapa: Map<String, Float>) {
+        println(mapa.mapKeys { (_, valor) -> listOf(valor, valor * 0.09f)})
     }
 }
 
@@ -36,15 +41,16 @@ object Leitor {
         return mapa
         }
 
-    }
-
-    fun lerVenda(): Float {
+    fun lerVenda(): Map<String, Float> {
         return lerEntrada {
             val possivelNumero = it.toFloatOrNull()
             possivelNumero != null
-        }.toFloat()
+        }.toMap()
     }
 
 }
+
+
+
 
 class MaximaTentativaAlcancadaException: Exception(Leitor.Mensagens.LIMITE_TENTATIVAS_ATINGIDO)
