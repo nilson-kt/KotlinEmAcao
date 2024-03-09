@@ -1,23 +1,39 @@
 fun main() {
-    //semana tem 7 dias
-    //vendedor recebe 200 * 7 por semana + 9% de suas vendas brutas, exemplo + 9% de 3000
-    Colaborador.lerEntrada()
+    Colaborador.rodarPrograma()
 }
 
 object Colaborador {
-    fun lerEntrada() {
-        calcularComissao(Leitor.lerVenda())
+    private var valorBase = 200
+    private var porcentagemBase = 0.09f
+    private const val SEMANAS_NO_MES = 4
 
-
+    private fun lerEntrada(): Map<String, Float> {
+        return Leitor.lerVendaBrutaPorVendedor()
     }
 
-    fun calcularComissao(mapa: Map<String, Float>) {
-        println(mapa.mapKeys { (_, valor) -> listOf(valor, valor * 0.09f)})
+    private fun calcularComissao(vendaBrutaPorVendedor: Map<String, Float>): Map<String, Float> {
+        return vendaBrutaPorVendedor.mapValues { (_, vendaBruta) -> vendaBruta * porcentagemBase}
+    }
+
+    private fun calcularSalario(comissaoPorVendedor: Map<String, Float>): Map<String, Float> {
+        return comissaoPorVendedor.mapValues { (_, comissao) -> valorBase * SEMANAS_NO_MES + comissao}
+    }
+
+    private fun exibirInformacoes(mapa: Map<String, Float>) {
+        println(mapa)
+    }
+
+    fun rodarPrograma() {
+        val vendaBrutaPorVendedor = lerEntrada()
+        val comissaoPorVendedor = calcularComissao(vendaBrutaPorVendedor)
+        val salarioPorVendedor = calcularSalario(comissaoPorVendedor)
+        exibirInformacoes(salarioPorVendedor)
     }
 }
 
 object Leitor {
     private const val MAX_TENTATIVA = 5
+    private const val NUMERO_MAXIMO_VENDEDORES = 5
     private var tentativa = 0
 
     object Mensagens {
@@ -27,21 +43,21 @@ object Leitor {
 
     private fun lerEntrada(validacao: (String) -> Boolean): Map<String, Float> {
         val mapa = mutableMapOf<String, Float>()
-        for (contador in 1..5) {
+        for (contador in 1..NUMERO_MAXIMO_VENDEDORES) {
             print("Digite a venda bruta do ${contador}º vendedor: R$")
             var entrada = readln()
             while (!validacao(entrada)) {
                 print(Mensagens.VENDA_BRUTA_INVALIDA)
                 entrada = readln()
                 tentativa++
-                if (tentativa == 5)  throw MaximaTentativaAlcancadaException()
+                if (tentativa == MAX_TENTATIVA)  throw MaximaTentativaAlcancadaException()
             }
             mapa += "Vendedor $contador" to entrada.toFloat()
             }
         return mapa
         }
 
-    fun lerVenda(): Map<String, Float> {
+    fun lerVendaBrutaPorVendedor(): Map<String, Float> {
         return lerEntrada {
             val possivelNumero = it.toFloatOrNull()
             possivelNumero != null
@@ -49,8 +65,6 @@ object Leitor {
     }
 
 }
-
-
 
 
 class MaximaTentativaAlcancadaException: Exception(Leitor.Mensagens.LIMITE_TENTATIVAS_ATINGIDO)
