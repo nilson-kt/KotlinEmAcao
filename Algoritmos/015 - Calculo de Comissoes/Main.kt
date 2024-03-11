@@ -19,15 +19,22 @@ object Colaborador {
         return comissaoPorVendedor.mapValues { (_, comissao) -> valorBase * SEMANAS_NO_MES + comissao}
     }
 
+
+    private fun calcularQuantidade(salarioPorVendedor: Map<String, Float>): Map<String, Float> {
+        return salarioPorVendedor.map { (chave, _) -> chave.last().toString() to 3f }.toMap()
+    }
+
     private fun exibirInformacoes(mapa: Map<String, Float>) {
         println(mapa)
     }
+
 
     fun rodarPrograma() {
         val vendaBrutaPorVendedor = lerEntrada()
         val comissaoPorVendedor = calcularComissao(vendaBrutaPorVendedor)
         val salarioPorVendedor = calcularSalario(comissaoPorVendedor)
-        exibirInformacoes(salarioPorVendedor)
+        val mapa = calcularQuantidade(salarioPorVendedor)
+        exibirInformacoes(mapa)
     }
 }
 
