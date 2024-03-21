@@ -1,5 +1,7 @@
+import kotlin.system.exitProcess
+
 fun main() {
-        Detetive.entrada()
+        Detetive.rodarPrograma()
     }
 
 
@@ -16,11 +18,12 @@ object Detetive {
     fun entrada() {
         for (pergunta in perguntas) {
             print("$pergunta ([1] Sim [2] Não [0] Encerrar programa):  ")
-            respostas.add(Leitor.lerResposta())
+            val resposta = Leitor.lerResposta()
+            if (resposta == 0) exitProcess(0) else respostas.add(resposta)
         }
     }
 
-    fun processamento() {
+    private fun processamento() {
         respostas.forEach { if (it == 1) pontos++ }
         classificacao = when (pontos) {
             2 -> "suspeito"
@@ -32,6 +35,12 @@ object Detetive {
 
     fun saida() {
         println("Você é $classificacao")
+    }
+
+    fun rodarPrograma() {
+        entrada()
+        processamento()
+        saida()
     }
 }
 
