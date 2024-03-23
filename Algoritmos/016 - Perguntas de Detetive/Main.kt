@@ -1,21 +1,23 @@
 import kotlin.system.exitProcess
 
 fun main() {
-        Detetive.rodarPrograma()
+        try {
+            Detetive.rodarPrograma()
+        } catch (e: MaximoDeTentativasAtingido) {
+            println()
+            println(e.message)
+        }
     }
 
-
 object Detetive {
-    val perguntas = arrayOf("Telefonou para a vítima?", "Esteve no local do crime?",  "Mora perto da vítima?",
+
+    private val perguntas = arrayOf("Telefonou para a vítima?", "Esteve no local do crime?",  "Mora perto da vítima?",
         "Devia para a vítima?", "Já trabalhou com a vítima?")
+    private val respostas = mutableListOf<Int>()
+    private var pontos = 0
+    private var classificacao = ""
 
-    val respostas = mutableListOf<Int>()
-
-    var pontos = 0
-
-    var classificacao = ""
-
-    fun entrada() {
+    private fun entrada() {
         for (pergunta in perguntas) {
             print("$pergunta ([1] Sim [2] Não [0] Encerrar programa):  ")
             val resposta = Leitor.lerResposta()
@@ -33,8 +35,9 @@ object Detetive {
         }
     }
 
-    fun saida() {
-        println("Você é $classificacao")
+    private fun saida() {
+        println("=".repeat(40))
+        println("Você respondeu sim a $pontos perguntas e, como resultado, você é $classificacao.")
     }
 
     fun rodarPrograma() {
@@ -45,10 +48,15 @@ object Detetive {
 }
 
 object Leitor {
+
+    object Mensagens {
+        const val RESPOSTA_INVALIDA = "Resposta inválida. Digite um número inteiro de 0, 1, 2: "
+    }
+
     private const val MAX_TENTATIVA = 5
-    private var tentativa = 0
 
     private fun lerEntrada(mensagem: String, validacao: (String) -> Boolean ): String {
+        var tentativa = 0
         while (tentativa != MAX_TENTATIVA) {
             val entrada = readln()
             if (!validacao(entrada)) print(mensagem) else return entrada
@@ -58,11 +66,11 @@ object Leitor {
     }
 
     fun lerResposta(): Int {
-        return lerEntrada("Resposta inválida. Digite um número inteiro de 0, 1, 2: ") {
+        return lerEntrada(Mensagens.RESPOSTA_INVALIDA) {
             val possivelNumero = it.toIntOrNull()
             possivelNumero != null && possivelNumero in setOf(0, 1, 2)
         }.toInt()
     }
 }
 
-class MaximoDeTentativasAtingido: Exception("Você atingiu o número máximo de tentativas. Programa encerrado.")
+class MaximoDeTentativasAtingido: Exception("Você excedeu o número máximo de tentativas. Programa encerrado.")
