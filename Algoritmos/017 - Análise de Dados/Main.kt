@@ -1,6 +1,8 @@
 fun main() {
     val lista = mutableListOf<Int>()
-    while (true) {
-        print("Digite um número inteiro: ")
+    val entrada = readln().toIntOrNull().let {
+        print("Dado inválido. Digite um número inteiro: ")
+
     }
+    println(entrada)
 }
