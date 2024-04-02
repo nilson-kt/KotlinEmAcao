@@ -1,11 +1,12 @@
 fun main() {
-    Sistema.lerEntrada()
+    App.run()
 }
 
-object Sistema {
-    private val lista = mutableListOf<Float>()
+object App {
+    private val data = mutableListOf<Float>()
+    private var processProduct = mapOf<String, Any>()
 
-    fun lerEntrada() {
+    private fun input() {
         print("Digite um número: ")
         while (true) {
             when (val entrada = readln().toFloatOrNull())  {
@@ -14,20 +15,30 @@ object Sistema {
                     continue
                 }
                 -1.0f -> break
-                else -> lista.add(entrada)
+                else -> data.add(entrada)
             }
         }
     }
 
-    fun processar() {
-        val mapa = mapOf(
-            "total" to lista.size,
-            "soma" to lista.sum(),
-            "média" to lista.average(),
-            "valores acima da média" to lista.filter { it > lista.average() },
-            "valores abaixo de sete" to lista.filter { it < 7 }
+    private fun process() {
+        processProduct += mapOf(
+            "total" to data.size,
+            "valores em ordem" to data,
+            "valores em ordem inversa" to data.reversed(),
+            "soma" to data.sum(),
+            "média" to data.average(),
+            "valores acima da média" to data.filter { it > data.average() },
+            "valores abaixo de sete" to data.filter { it < 7 }
         )
+    }
 
+    private fun output() {
+        println(processProduct)
+    }
 
+    fun run() {
+        input()
+        process()
+        output()
     }
 }
