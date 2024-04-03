@@ -7,11 +7,11 @@ object App {
     private var processProduct = mapOf<String, Any>()
 
     private fun input() {
-        print("Digite um número: ")
         while (true) {
+            print("Digite um número (digite -1 para parar): ")
             when (val entrada = readln().toFloatOrNull())  {
                 null -> {
-                    print("Entrada inválida. Digite um número inteiro: ")
+                    println("Entrada inválida. Digite um número inteiro.")
                     continue
                 }
                 -1.0f -> break
