@@ -33,7 +33,12 @@ object App {
     }
 
     private fun output() {
-        println(processProduct)
+        println("-".repeat(40))
+        println("RESULTADO".padStart(9+14))
+        println("-".repeat(40))
+        processProduct.forEach { (key, value) ->
+            println("$key = $value")
+        }
     }
 
     fun run() {
