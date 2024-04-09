@@ -7,16 +7,17 @@ fun main() {
 
 object Sistema {
     val listaJogadores = (1..24).associate { "Jogador $it" to 0 } as MutableMap<String, Int>
+
     fun entrada() {
-        do {
+        while (true) {
             print("Digite um número entre 1 e 23 (0 para encerrar): ")
-            val numero = readln().toIntOrNull()
-            when (numero) {
+            when (val numero = readln().toIntOrNull()) {
                 null -> println("Número inválido. Digite um número inteiro.")
                 !in (0..23) -> println("Número inválido. Digite um número entre 1 e 23.")
-                else -> listaJogadores["Jogador $numero"]
+                0 -> break
+                else -> listaJogadores["Jogador $numero"] = listaJogadores["Jogador $numero"] + 1
             }
-        } while (numero != null && numero != 0)
+        }
     }
 
 }
