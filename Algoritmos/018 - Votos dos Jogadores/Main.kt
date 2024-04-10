@@ -20,4 +20,8 @@ object Sistema {
         }
     }
 
+    fun processamento() {
+
+    }
+
 }
