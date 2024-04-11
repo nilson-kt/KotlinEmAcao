@@ -23,5 +23,8 @@ object Sistema {
     fun processamento() {
 
     }
+    fun saida() {
+
+    }
 
 }
