@@ -6,7 +6,9 @@ fun main() {
 }
 
 object Sistema {
-    val listaJogadores = (1..24).associate { "Jogador $it" to 0 } as MutableMap<String, Int>
+    val listaJogadores = (1..23).associate { "Jogador $it" to 0 } as MutableMap<String, Int>
+    var totalVotos = 0
+
 
     fun entrada() {
         while (true) {
@@ -15,14 +17,16 @@ object Sistema {
                 null -> println("Número inválido. Digite um número inteiro.")
                 !in (0..23) -> println("Número inválido. Digite um número entre 1 e 23.")
                 0 -> break
-                else -> listaJogadores["Jogador $numero"] = listaJogadores["Jogador $numero"] + 1
+                else -> listaJogadores["Jogador $numero"] = listaJogadores["Jogador $numero"]!! + 1
             }
         }
     }
 
     fun processamento() {
-
+        totalVotos = listaJogadores.values.sum()
+        listaJogadores.entries.associate { "Porcentagem de Votos $it" to it}
     }
+
     fun saida() {
 
     }
