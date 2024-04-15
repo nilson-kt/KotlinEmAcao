@@ -1,7 +1,6 @@
 fun main() {
-    println(Sistema.listaJogadores)
     Sistema.entrada()
-    println(Sistema.listaJogadores)
+    Sistema.processamento()
 
 }
 
@@ -24,7 +23,9 @@ object Sistema {
 
     fun processamento() {
         totalVotos = listaJogadores.values.sum()
-        listaJogadores.entries.associate { "Porcentagem de Votos $it" to it}
+        println(totalVotos)
+        println(listaJogadores.filterValues { it > 0 })
+        println(listaJogadores.entries.associate { (chave, valor) -> chave to ((valor.toFloat() / totalVotos.toFloat()) * 100).toInt() })
     }
 
     fun saida() {
