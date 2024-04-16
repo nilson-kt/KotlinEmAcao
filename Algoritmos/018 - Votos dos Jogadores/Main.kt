@@ -28,7 +28,7 @@ object Sistema {
         println(listaJogadores.entries.associate { (chave, valor) -> chave to ((valor.toFloat() / totalVotos.toFloat()) * 100).toInt() })
     }
 
-    fun saida() {
+    fun output() {
 
     }
 
