@@ -5,7 +5,7 @@ fun main() {
 }
 
 object Sistema {
-    val listaJogadores = (1..23).associate { "Jogador $it" to 0 } as MutableMap<String, Int>
+    val listaJogadores = (1..23).associate { "Jogador $it" to 0 } as MutableMap<String, Pair<Int, Int>>
     var totalVotos = 0
 
 
@@ -22,7 +22,7 @@ object Sistema {
     }
 
     fun processamento() {
-        totalVotos = listaJogadores.values.sum()
+        totalVotos = listaJogadores.values.first()
         println(totalVotos)
         println(listaJogadores.filterValues { it > 0 })
         println(listaJogadores.entries.associate { (chave, valor) -> chave to ((valor.toFloat() / totalVotos.toFloat()) * 100).toInt() })
