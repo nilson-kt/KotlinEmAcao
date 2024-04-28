@@ -1,15 +1,16 @@
 fun main() {
     Sistema.entrada()
     Sistema.processamento()
+    val vetor = Array<Int>(3) { 0 }
+}
+
+data class Jogador(val nome: String, var voto: Int = 0, val porcentagem: Float = 0f) {
 
 }
 
-data class Jogador(var voto: Int = 0, val porcentagem: Float = 0f)
-
 object Sistema {
-    val listaJogadores = (1..23).associate { "Jogador $it" to Jogador() }.toMutableMap()
     var totalVotos = 0
-
+    val vetor = List(23) {Jogador("Jogador ${it+1}", 0, 0f)}
 
     fun entrada() {
         while (true) {
@@ -18,13 +19,13 @@ object Sistema {
                 null -> println("Número inválido. Digite um número inteiro.")
                 !in (0..23) -> println("Número inválido. Digite um número entre 1 e 23.")
                 0 -> break
-                else -> listaJogadores["Jogador $numero"]!!.voto = numero
+                else -> vetor[numero-1].voto++
             }
         }
     }
 
     fun processamento() {
-        println(listaJogadores)
+        println(vetor)
 
     }
 
