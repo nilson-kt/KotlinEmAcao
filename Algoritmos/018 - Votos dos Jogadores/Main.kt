@@ -4,8 +4,11 @@ fun main() {
     val vetor = Array<Int>(3) { 0 }
 }
 
-data class Jogador(val nome: String, var voto: Int = 0, val porcentagem: Float = 0f) {
+data class Jogador(val nome: String, var voto: Int = 0, var porcentagem: Float = 0f) {
 
+    init {
+        porcentagem = voto.toFloat()
+    }
 }
 
 object Sistema {
@@ -25,12 +28,16 @@ object Sistema {
     }
 
     fun processamento() {
-        println(vetor)
+        println(vetor.map { it.porcentagem})
+        val numeroVotos = vetor.sumOf { it.voto }
+        for (jogador in vetor) {
+            jogador.porcentagem = jogador.voto / 10 * numeroVotos
+        }
 
+        val jogadoresVotados = vetor.filter { it.voto != 0 }
     }
 
     fun output() {
-
     }
 
 }
