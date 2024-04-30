@@ -1,19 +1,18 @@
+import kotlin.math.truncate
+
 fun main() {
     Sistema.entrada()
     Sistema.processamento()
     val vetor = Array<Int>(3) { 0 }
 }
 
-data class Jogador(val nome: String, var voto: Int = 0, var porcentagem: Float = 0f) {
+data class Jogador(val nome: String, var voto: Int = 0, var porcentagem: String = "") {
 
-    init {
-        porcentagem = voto.toFloat()
-    }
 }
 
 object Sistema {
     var totalVotos = 0
-    val vetor = List(23) {Jogador("Jogador ${it+1}", 0, 0f)}
+    val vetor = List(23) {Jogador("Jogador ${it+1}", 0, "")}
 
     fun entrada() {
         while (true) {
@@ -28,11 +27,11 @@ object Sistema {
     }
 
     fun processamento() {
-        println(vetor.map { it.porcentagem})
         val numeroVotos = vetor.sumOf { it.voto }
         for (jogador in vetor) {
-            jogador.porcentagem = jogador.voto / 10 * numeroVotos
+            jogador.porcentagem = "${truncate((jogador.voto.toFloat() / numeroVotos) * 100)}%"
         }
+        println(vetor)
 
         val jogadoresVotados = vetor.filter { it.voto != 0 }
     }
