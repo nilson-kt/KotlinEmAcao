@@ -1,9 +1,5 @@
-import kotlin.math.truncate
-
 fun main() {
-    Sistema.entrada()
-    Sistema.processamento()
-    val vetor = Array<Int>(3) { 0 }
+    Sistema.rodar()
 }
 
 data class Jogador(val nome: String, var voto: Int = 0, var porcentagem: String = "") {
@@ -39,9 +35,24 @@ object Sistema {
     }
 
     fun output() {
-        println("""
-            Numero
-        """.trimIndent())
+        println("Foram computados $totalVotos votos.")
+        jogadoresVotados.forEach {
+            println(buildString {
+                append(it.nome.padEnd(14))
+                append(it.voto.toString().padEnd(4))
+                append(it.porcentagem)
+            })
+        }
+        melhorJogador.run {
+            println("O melhor jogador foi o ${this.nome}, com ${this.voto} votos, correspondnedo a ${this.porcentagem}" +
+                    " do total de votos.")
+        }
+    }
+
+    fun rodar() {
+        entrada()
+        processamento()
+        output()
     }
 
 }
